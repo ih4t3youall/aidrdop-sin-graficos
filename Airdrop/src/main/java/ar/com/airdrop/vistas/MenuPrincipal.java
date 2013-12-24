@@ -1,12 +1,9 @@
 package ar.com.airdrop.vistas;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
-
-import javax.swing.JButton;
 
 import ar.com.airdrop.Escaner.Escanear;
 import ar.com.airdrop.context.SpringContext;
@@ -18,11 +15,6 @@ import ar.com.airdrop.services.EnvioService;
 import ar.com.airdrop.services.PcService;
 
 public class MenuPrincipal {
-
-	private JButton escanear, enviarArchivos, salir, ingresarIp, enviarMensaje,
-			editar, enviarComando;
-	private LinkedList<Pc> pcs = new LinkedList<Pc>();
-	private List lista = new List();
 
 	private static PcService pcService = (PcService) SpringContext.getContext()
 			.getBean("pcService");
@@ -235,47 +227,5 @@ public class MenuPrincipal {
 		}
 	}
 
-	public LinkedList<Pc> damePcs() {
-
-		return this.pcs;
-
-	}
-
-	public void deshabilitarBotones() {
-
-		this.escanear.setEnabled(false);
-		this.enviarArchivos.setEnabled(false);
-		this.salir.setEnabled(false);
-		this.ingresarIp.setEnabled(false);
-
-	}
-
-	public void habilitarBotones() {
-
-		this.escanear.setEnabled(true);
-		this.enviarArchivos.setEnabled(true);
-		this.salir.setEnabled(true);
-		this.ingresarIp.setEnabled(true);
-
-	}
-
-	public void cargarLista() {
-
-		LinkedList<Pc> ListaOtrasPc = pcService.obtenerListaPcExternas();
-
-		lista.removeAll();
-
-		for (Pc pc : ListaOtrasPc) {
-			String aux = "";
-			if (pc.getNombreEquipo().length() > 14)
-				aux = pc.getNombreEquipo().substring(0, 14);
-			else
-				aux = pc.getNombreEquipo();
-
-			lista.add(aux);
-
-		}
-
-	}
 
 }
