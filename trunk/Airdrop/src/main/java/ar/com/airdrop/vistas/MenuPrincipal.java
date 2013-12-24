@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import javax.swing.JButton;
 
+import ar.com.airdrop.Escaner.Escanear;
 import ar.com.airdrop.context.SpringContext;
 import ar.com.airdrop.dominio.Mensaje;
 import ar.com.airdrop.dominio.Pc;
@@ -46,7 +47,8 @@ public class MenuPrincipal {
 			System.out.println("5) Enviar comando");
 			System.out.println("6) Guardar configuracion");
 			System.out.println("7) Ingresar ip");
-			System.out.println("8) salir");
+			System.out.println("8) Escanear...");
+			System.out.println("9) salir");
 
 			int opcion = 0;
 
@@ -216,6 +218,14 @@ public class MenuPrincipal {
 
 				break;
 			case 8:
+				try {
+					new Escanear().inicioEscanner();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 9:
 				System.out.println("terminando...");
 				System.exit(0);
 			default:
