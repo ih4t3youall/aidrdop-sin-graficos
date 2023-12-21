@@ -50,7 +50,7 @@ public class RecibirArchivo extends Thread {
 				String fichero = archivoService.obtenerNombreArchivo();
 				// TODO
 
-				// Se envía un mensaje de petición de fichero.
+				// Se envia un mensaje de peticion de fichero.
 				ObjectOutputStream oos = new ObjectOutputStream(
 						accept.getOutputStream());
 				MensajeDameFichero mensaje = new MensajeDameFichero();

@@ -24,11 +24,6 @@ public class Inicio {
 	
 
 	public Inicio() {
-
-		
-		
-		
-		
 		Pc pc = null;
 		try {
 			pc = ipService.obtenerIp();

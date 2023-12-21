@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Mensaje para pedir un fichero.
- * @author Javier Abellán
+ * @author Martin Lequerica
  *
  */
 public class MensajeDameFichero implements Serializable
