@@ -69,8 +69,6 @@ public class Persistencia {
 
 		}
 		}else {
-			
-			
 			throw new ArchivoNoExisteException("el archivo no existe");
 		}
 

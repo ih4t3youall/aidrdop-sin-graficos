@@ -21,7 +21,7 @@ public class PcService implements Serializable{
 				persistencia.recuperarGuardado(this);
 			} catch (ArchivoNoExisteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		
 		
