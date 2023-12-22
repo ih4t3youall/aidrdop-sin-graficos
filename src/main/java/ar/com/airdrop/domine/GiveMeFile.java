@@ -1,4 +1,4 @@
-package ar.com.airdrop.dominio;
+package ar.com.airdrop.domine;
 
 import java.io.Serializable;
 
@@ -7,8 +7,8 @@ import java.io.Serializable;
  * @author Martin Lequerica
  *
  */
-public class MensajeDameFichero implements Serializable
+public class GiveMeFile implements Serializable
 {
     /** path completo del fichero que se pide */
-    public String nombreFichero;
+    public String fileName;
 }

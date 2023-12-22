@@ -1,4 +1,4 @@
-package ar.com.airdrop.dominio;
+package ar.com.airdrop.domine;
 /**
  * Martin Lequerica. 18 Mar 2006
  * 
@@ -16,20 +16,20 @@ import java.io.Serializable;
  * @author Javier Abellon
  *
  */
-public class MensajeTomaFichero implements Serializable
+public class GetFileMessage implements Serializable
 {
     /** Nombre del fichero que se transmite. Por defecto "" */
-    public String nombreFichero="";
+    public String fileName ="";
 
     /** Si este es el ultimo mensaje del fichero en cuestion o hay mas despuus */
-    public boolean ultimoMensaje=true;
+    public boolean lastMessage =true;
 
     /** Cuantos bytes son vilidos en el array de bytes */
-    public int bytesValidos=0;
+    public int validBytes =0;
 
     /** Array con bytes leidos del fichero */
-    public byte[] contenidoFichero = new byte[LONGITUD_MAXIMA];
+    public byte[] fileContent = new byte[MAX_LENGHT];
     
     /** Numero maximo de bytes que se enviain en cada mensaje */
-    public final static int LONGITUD_MAXIMA=10;
+    public final static int MAX_LENGHT =10;
 }

@@ -1,10 +1,10 @@
-package ar.com.airdrop.Escaner;
+package ar.com.airdrop.scanner;
 
 import java.net.Socket;
 import java.util.LinkedList;
 
 import ar.com.airdrop.context.SpringContext;
-import ar.com.airdrop.dominio.Pc;
+import ar.com.airdrop.domine.Pc;
 import ar.com.airdrop.services.PcService;
 
 public class ThreadEscanerPuertos extends Thread {
@@ -13,15 +13,13 @@ public class ThreadEscanerPuertos extends Thread {
 	
 	private PcService pcService = (PcService)SpringContext.getContext().getBean("pcService");
 	
-	private LinkedList<Pc> filtradas;
+	private LinkedList<Pc> filtered;
 	
-	public ThreadEscanerPuertos(Pc pc, LinkedList<Pc> filtradas){
+	public ThreadEscanerPuertos(Pc pc, LinkedList<Pc> filtered){
 		
-		this.filtradas = filtradas; 
+		this.filtered = filtered;
 		this.pc = pc;
-		
-		
-		
+
 	}
 	
 	
@@ -31,7 +29,7 @@ public class ThreadEscanerPuertos extends Thread {
 		try {
 			Socket socket = new Socket(pc.getIp(),8123);
 			System.out.println("el puerto esta abierto "+pc.getIp());
-			filtradas.add(pc);
+			filtered.add(pc);
 		} catch (Exception e) {
 			System.out.println("error al verificar el puerto de : "+pc.getIp());
 			
@@ -50,10 +48,7 @@ public class ThreadEscanerPuertos extends Thread {
 	public void setPcService(PcService pcService) {
 		this.pcService = pcService;
 	}
-		
-	
-	
-	
+
 	}
 	
 

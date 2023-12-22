@@ -1,4 +1,4 @@
-package ar.com.airdrop.persistencia;
+package ar.com.airdrop.persistence;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import ar.com.airdrop.exceptions.ArchivoNoExisteException;
+import ar.com.airdrop.exceptions.FileNotExist;
 import ar.com.airdrop.services.PcService;
 
-public class Persistencia {
+public class Persistence {
 
 	
 
-	public void Guardar(PcService pcService) {
+	public void saveRecord(PcService pcService) {
 		Object obj = pcService;
 
 		File arch = new File("airdropdata");
@@ -38,7 +38,7 @@ public class Persistencia {
 		}
 	}
 
-	public void recuperarGuardado(PcService pcService) throws ArchivoNoExisteException {
+	public void loadRecord(PcService pcService) throws FileNotExist {
 
 		File f = new File("airdropdata");
 		if(f.exists()){
@@ -49,7 +49,7 @@ public class Persistencia {
 			Object aux = ois.readObject();
 
 			PcService service = (PcService) aux;
-			pcService.setPcExternas(service.obtenerListaPcExternas());
+			pcService.setExternalPc(service.getListExternalPc());
 			pcService.setIpLocalhost(service.obtenerIpLocal());
 			
 			
@@ -69,7 +69,7 @@ public class Persistencia {
 
 		}
 		}else {
-			throw new ArchivoNoExisteException("el archivo no existe");
+			throw new FileNotExist("el archivo no existe");
 		}
 
 	}

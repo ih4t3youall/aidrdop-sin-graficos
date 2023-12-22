@@ -1,4 +1,4 @@
-package ar.com.airdrop.dominio;
+package ar.com.airdrop.domine;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ public class Pc implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String ip;
-	private String nombreEquipo;
+	private String pcName;
 
 	
 	public Pc(String ip){
@@ -24,12 +24,12 @@ public class Pc implements Serializable {
 		this.ip = ip;
 	}
 
-	public String getNombreEquipo() {
-		return nombreEquipo;
+	public String getPcName() {
+		return pcName;
 	}
 
-	public void setNombreEquipo(String nombreEquipo) {
-		this.nombreEquipo = nombreEquipo;
+	public void setPcName(String pcName) {
+		this.pcName = pcName;
 	}
 	
 	

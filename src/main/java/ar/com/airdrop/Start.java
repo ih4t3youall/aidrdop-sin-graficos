@@ -5,32 +5,32 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import ar.com.airdrop.context.SpringContext;
-import ar.com.airdrop.dominio.Pc;
+import ar.com.airdrop.domine.Pc;
 import ar.com.airdrop.exceptions.ServiceException;
 import ar.com.airdrop.services.IpService;
 import ar.com.airdrop.services.PcService;
-import ar.com.airdrop.services.RecepcionService;
-import ar.com.airdrop.vistas.MenuPrincipal;
+import ar.com.airdrop.services.ReceptionService;
+import ar.com.airdrop.views.MenuPrincipal;
 
-public class Inicio {
+public class Start {
 
 	private static IpService ipService = (IpService) SpringContext.getContext()
 			.getBean("ipService");
-	private RecepcionService recepcionService = (RecepcionService) SpringContext
+	private ReceptionService receptionService = (ReceptionService) SpringContext
 			.getContext().getBean("recepcionService");
 	private PcService pcService = (PcService) SpringContext
 			.getContext().getBean("pcService");
 	
 	
 
-	public Inicio() {
+	public Start() {
 		Pc pc = null;
 		try {
 			pc = ipService.obtenerIp();
 			if (pcService.obtenerIpLocal().equals("0")){
-			pcService.setIpLocalhost(pc.getIp());
+				pcService.setIpLocalhost(pc.getIp());
 			}
-			pcService.setNombreLocal(pc.getNombreEquipo());
+			pcService.setNombreLocal(pc.getPcName());
 
 			
 		} catch (ServiceException e) {
@@ -41,7 +41,7 @@ public class Inicio {
 		}
 			
 		
-		recepcionService.iniciarServerSocketObjetos();
+		receptionService.startServerSocketObjects();
 		
 		try {
 			MenuPrincipal menuPrincipal = new MenuPrincipal();
@@ -61,12 +61,12 @@ public class Inicio {
 		this.ipService = ipService;
 	}
 
-	public RecepcionService getRecepcionService() {
-		return recepcionService;
+	public ReceptionService getReceptionService() {
+		return receptionService;
 	}
 
-	public void setRecepcionService(RecepcionService recepcionService) {
-		this.recepcionService = recepcionService;
+	public void setReceptionService(ReceptionService recepcionService) {
+		this.receptionService = recepcionService;
 	}
 
 }

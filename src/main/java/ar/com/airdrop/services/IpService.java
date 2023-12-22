@@ -3,7 +3,7 @@ package ar.com.airdrop.services;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import ar.com.airdrop.dominio.Pc;
+import ar.com.airdrop.domine.Pc;
 import ar.com.airdrop.exceptions.ServiceException;
 
 
@@ -25,19 +25,9 @@ public class IpService {
 		hostName = localHost.getHostName();
 		}
 		Pc pc = new Pc(hostAddress);
-		pc.setNombreEquipo(hostName);
+		pc.setPcName(hostName);
 		return pc;
 		
 	}
-	
-	public String obtenerNombrePc() throws ServiceException{
-		return hostName;
-	}
-	
-	
-	
-	
-	
-	
 	
 }

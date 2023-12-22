@@ -9,15 +9,15 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
-import ar.com.airdrop.constantes.Constantes;
+import ar.com.airdrop.constants.Constants;
 import ar.com.airdrop.context.SpringContext;
-import ar.com.airdrop.dominio.MensajeDameFichero;
-import ar.com.airdrop.dominio.MensajeTomaFichero;
-import ar.com.airdrop.services.ArchivoService;
+import ar.com.airdrop.domine.GiveMeFile;
+import ar.com.airdrop.domine.GetFileMessage;
+import ar.com.airdrop.services.FileService;
 
 public class RecibirArchivo extends Thread {
 
-	private ArchivoService archivoService = (ArchivoService) SpringContext
+	private FileService fileService = (FileService) SpringContext
 			.getContext().getBean("archivoService");
 
 	private ServerSocket socket;
@@ -27,7 +27,7 @@ public class RecibirArchivo extends Thread {
 		
 		try {
 			socket = new ServerSocket(
-					Constantes.PUERTO_ARCHIVOS);
+					Constants.FILE_PORT);
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(null, "Error con el socket");
 			e1.printStackTrace();
@@ -47,39 +47,39 @@ public class RecibirArchivo extends Thread {
 
 				System.out.println("recibi un archivo de la ip"
 						+ accept.getInetAddress());
-				String fichero = archivoService.obtenerNombreArchivo();
+				String fichero = fileService.obtenerNombreArchivo();
 				// TODO
 
 				// Se envia un mensaje de peticion de fichero.
 				ObjectOutputStream oos = new ObjectOutputStream(
 						accept.getOutputStream());
-				MensajeDameFichero mensaje = new MensajeDameFichero();
-				mensaje.nombreFichero = fichero;
+				GiveMeFile mensaje = new GiveMeFile();
+				mensaje.fileName = fichero;
 				oos.writeObject(mensaje);
 
 				// Se abre un fichero para empezar a copiar lo que se reciba.
-				fos = new FileOutputStream(archivoService.getDirectorioSalvado()+"/"
-						+ mensaje.nombreFichero);
+				fos = new FileOutputStream(fileService.getDirectorioSalvado()+"/"
+						+ mensaje.fileName);
 
 				// Se crea un ObjectInputStream del socket para leer los
 				// mensajes
 				// que contienen el fichero.
 				ois = new ObjectInputStream(accept.getInputStream());
-				MensajeTomaFichero mensajeRecibido;
+				GetFileMessage mensajeRecibido;
 				Object mensajeAux;
 				do {
 					// Se lee el mensaje en una variabla auxiliar
 					mensajeAux = ois.readObject();
 
 					// Si es del tipo esperado, se trata
-					if (mensajeAux instanceof MensajeTomaFichero) {
-						mensajeRecibido = (MensajeTomaFichero) mensajeAux;
+					if (mensajeAux instanceof GetFileMessage) {
+						mensajeRecibido = (GetFileMessage) mensajeAux;
 						// Se escribe en pantalla y en el fichero
 						System.out.print(new String(
-								mensajeRecibido.contenidoFichero, 0,
-								mensajeRecibido.bytesValidos));
-						fos.write(mensajeRecibido.contenidoFichero, 0,
-								mensajeRecibido.bytesValidos);
+								mensajeRecibido.fileContent, 0,
+								mensajeRecibido.validBytes));
+						fos.write(mensajeRecibido.fileContent, 0,
+								mensajeRecibido.validBytes);
 					} else {
 						// Si no es del tipo esperado, se marca error y se
 						// termina
@@ -88,7 +88,7 @@ public class RecibirArchivo extends Thread {
 								+ mensajeAux.getClass().getName());
 						break;
 					}
-				} while (!mensajeRecibido.ultimoMensaje);
+				} while (!mensajeRecibido.lastMessage);
 
 				// Se cierra socket y fichero
 

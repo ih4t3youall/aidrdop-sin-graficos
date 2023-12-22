@@ -1,10 +1,10 @@
-package ar.com.airdrop.Escaner;
+package ar.com.airdrop.scanner;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import ar.com.airdrop.context.SpringContext;
-import ar.com.airdrop.dominio.Pc;
+import ar.com.airdrop.domine.Pc;
 import ar.com.airdrop.services.PcService;
 
 
@@ -21,7 +21,7 @@ public class EscanerPuertos {
 		
 		
 		
-		Iterator<Pc> iterator = pcService.obtenerListaPcExternas().iterator();
+		Iterator<Pc> iterator = pcService.getListExternalPc().iterator();
 		
 		LinkedList<Pc> filtradas = new LinkedList<Pc>();
 		
@@ -39,7 +39,7 @@ public class EscanerPuertos {
 			e.printStackTrace();
 		}
 		
-		pcService.setPcExternas(filtradas);
+		pcService.setExternalPc(filtradas);
 		
 		
 	}

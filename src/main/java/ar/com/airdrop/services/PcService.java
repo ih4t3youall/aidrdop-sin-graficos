@@ -3,35 +3,33 @@ package ar.com.airdrop.services;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-import ar.com.airdrop.dominio.Pc;
-import ar.com.airdrop.exceptions.ArchivoNoExisteException;
-import ar.com.airdrop.persistencia.Persistencia;
+import ar.com.airdrop.domine.Pc;
+import ar.com.airdrop.exceptions.FileNotExist;
+import ar.com.airdrop.persistence.Persistence;
 
 public class PcService implements Serializable{
 
 	private Pc pcLocal = new Pc("0");
-	private LinkedList<Pc> pcExternas = new LinkedList<Pc>();
+	private LinkedList<Pc> externalPc = new LinkedList<Pc>();
 
 	
 	public PcService(){
-		Persistencia persistencia = new Persistencia();
+		Persistence persistence = new Persistence();
 		//se fija si hay configuraciones y las carga
 		
 			try {
-				persistencia.recuperarGuardado(this);
-			} catch (ArchivoNoExisteException e) {
+				persistence.loadRecord(this);
+			} catch (FileNotExist e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 			}
 		
-		
-		
 	}
 	
 	
-	public void setPcExternas(LinkedList<Pc> pcExternas){
+	public void setExternalPc(LinkedList<Pc> externalPc){
 		
-		this.pcExternas = pcExternas;
+		this.externalPc = externalPc;
 		
 	}
 	
@@ -51,7 +49,7 @@ public class PcService implements Serializable{
 
 	public void setNombreLocal(String nombre) {
 
-		pcLocal.setNombreEquipo(nombre);
+		pcLocal.setPcName(nombre);
 
 	}
 
@@ -59,18 +57,18 @@ public class PcService implements Serializable{
 		return this.pcLocal.getIp();
 	}
 
-	public String obtenerNombrePcLocal() {
-		return this.pcLocal.getNombreEquipo();
+	public String getLocalPcName() {
+		return this.pcLocal.getPcName();
 	}
 
-	public void addPcExterna(Pc pc) {
+	public void addExternalPc(Pc pc) {
 
 		boolean f = true;
-		for (Pc iterPc : pcExternas) {
+		for (Pc iterPc : externalPc) {
 
 			if (iterPc.getIp().equals(pc.getIp())) {
 				//para actualizar cuando cambia por archivo->Editar local, asi se actualiza la lista.
-				iterPc.setNombreEquipo(pc.getNombreEquipo());
+				iterPc.setPcName(pc.getPcName());
 				f = false;
 			}
 
@@ -78,16 +76,16 @@ public class PcService implements Serializable{
 
 		if (f) {
 
-			this.pcExternas.add(pc);
+			this.externalPc.add(pc);
 		}
 	}
 
-	public LinkedList<Pc> obtenerListaPcExternas() {
-		return this.pcExternas;
+	public LinkedList<Pc> getListExternalPc() {
+		return this.externalPc;
 	}
 
-	public void limpiarLista() {
-		pcExternas.clear();
+	public void cleanList() {
+		externalPc.clear();
 	}
 
 }

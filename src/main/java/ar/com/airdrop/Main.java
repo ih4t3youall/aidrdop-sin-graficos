@@ -6,7 +6,7 @@ package ar.com.airdrop;
 public class Main {
 
 	public static void main(String[] args) {
-		new Inicio();
+		new Start();
 	}
 	
 //	-----------------------------------------------------------------------------------------------------
